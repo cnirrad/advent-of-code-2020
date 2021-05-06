@@ -1,4 +1,4 @@
-(ns day6
+(ns aoc2020.day6
   (:require [utils :as util]))
 
 (defn read-file []

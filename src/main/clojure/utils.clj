@@ -3,8 +3,7 @@
 
 (defn read-file
   ([f]
-   (read-file f "\n")
-  )
+   (read-file f "\n"))
 
   ([f split-on]
    (-> (io/resource f)

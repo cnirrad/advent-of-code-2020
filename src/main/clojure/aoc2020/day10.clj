@@ -1,4 +1,4 @@
-(ns day10
+(ns aoc2020.day10
   (:require [utils :as util]))
 
 (defn str->num [s]

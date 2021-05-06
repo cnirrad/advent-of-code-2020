@@ -1,4 +1,4 @@
-(ns day2
+(ns aoc2020.day2
   (:require [utils :as util]))
 
 (defn parse-password-line [s]

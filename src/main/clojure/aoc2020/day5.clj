@@ -1,4 +1,4 @@
-(ns day5
+(ns aoc2020.day5
   (:require
     [utils :as util]))
 

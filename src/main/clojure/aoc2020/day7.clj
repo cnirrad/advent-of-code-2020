@@ -1,4 +1,4 @@
-(ns day7
+(ns aoc2020.day7
   (:require [utils :as util]))
 
 (defn parse-count [s]
@@ -83,5 +83,4 @@
         (if (empty? remaining-queue)
           (+ cnt total)
           (recur remaining-queue
-                 (+ cnt total))
-          )))))
+                 (+ cnt total)))))))

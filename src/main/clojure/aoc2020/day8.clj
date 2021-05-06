@@ -1,4 +1,4 @@
-(ns day8
+(ns aoc2020.day8
   (:require [utils :as util]))
 
 (defn raw-instruction->instruction [raw-instr]
