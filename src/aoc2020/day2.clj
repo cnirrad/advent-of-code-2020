@@ -3,8 +3,8 @@
 
 (defn parse-password-line [s]
   (let [parsed (re-find #"([0-9]+)-([0-9]+) (.): (.+)" s)]
-    [(Integer. (nth parsed 1))
-     (Integer. (nth parsed 2))
+    [(Integer/parseInt (nth parsed 1))
+     (Integer/parseInt (nth parsed 2))
      (.charAt (nth parsed 3) 0)
      (nth parsed 4)]))
 
@@ -41,5 +41,6 @@
 (defn validate-passwords-part2 []
   (count (filterv is-valid-part2? (read-password-file))))
 
-;(validate-passwords-part1)
-;(validate-passwords-part2)
+(comment
+  (validate-passwords-part1)
+  (validate-passwords-part2))

@@ -1,7 +1,6 @@
 ;; This is a practice problem from https://www.interviewbit.com/problems/rain-water-trapped/
 (ns rain)
 
-
 ;; state is a map that has the following elements
 ;;    water-map - a map of elevation to how much water could be accumulated, but hasn't been accounted for yet because a right boundry hasn't been found
 ;;    water-accum - the total amount of water that has been trapped so far
