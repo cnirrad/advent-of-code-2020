@@ -12,3 +12,8 @@
 
 (defmacro dbg [x]
   `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
+
+(defn wrap-println [f & args]
+  (let [result (apply f args)]
+    (println args " -> " result)
+    result))

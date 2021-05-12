@@ -34,14 +34,10 @@
       \F (move-dir coord dir val)
       (move-dir coord dir-inst val))))
 
-(defn wrap-println [f & args]
-  (let [result (apply f args)]
-    (println args " -> " result)
-    result))
 
 (defn find-manhatten-distance-travelled []
   (let [instructions (util/read-file "day12.txt")
-        end (reduce (partial wrap-println interpret-instruction) [0 0 \E] instructions)]
+        end (reduce (partial util/wrap-println interpret-instruction) [0 0 \E] instructions)]
     (println end)
     (+ (abs (first end))
        (abs (second end)))))
