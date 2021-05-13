@@ -1,4 +1,5 @@
-(ns geeksforgeeks)
+(ns geeksforgeeks
+  (:use [clojure.set :refer [difference]]))
 
 
 ;; https://practice.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1
@@ -46,8 +47,78 @@
 
 (comment
   (max-subarray-sum [1, 2, 3, -2, 5])                       ; => 9)
-  (max-subarray-sum [-1, -2, -3, -4])                       ; => -1
-  )
+  (max-subarray-sum [-1, -2, -3, -4]))                       ; => -1
 
 
 
+;; find all factors of a number
+
+(defn factors-of [n]
+  (loop [factors #{1 n}
+         divisor 2]
+    (println "n = " n ", divisor = " divisor ", factors = " factors)
+    (if (< (Math/sqrt n) divisor)
+      factors
+      (if (= 0 (mod n divisor))
+        (recur (conj factors divisor (/ n divisor))
+               (inc divisor))
+        (recur factors (inc divisor))))))
+
+(comment
+  (factors-of 15)
+  (factors-of 12))
+
+;; https://www.geeksforgeeks.org/ugly-numbers/
+(defn is-ugly? [n]
+  (let [max-div (fn [num denom]
+                  (loop [a num]
+                    (if (= 0 (mod a denom))
+                      (recur (/ a denom))
+                      a)))
+        no (max-div n 2)
+        no (max-div no 3)
+        no (max-div no 5)]
+    (= 1 no)))
+
+(defn get-nth-ugly-num [n]
+  (loop [cnt 1
+         i 1]
+    (if (= cnt n)
+      i
+      (recur (if (is-ugly? (inc i))
+               (inc cnt)
+               cnt)
+             (inc i)))))
+
+(comment
+  (is-ugly? 5832)
+  (get-nth-ugly-num 150))
+
+
+;; https://www.geeksforgeeks.org/coin-change-dp-7/
+
+(defn find-change [change-for coins-available]
+  (loop [solutions []
+         current [(first coins-available)]
+         stack (into [] (for [c (rest coins-available)] [c]))]
+    (println "current=" current "stack=" stack "solutions=" solutions)
+    (if (and (empty? current) (empty? stack))
+      solutions
+      (let [total (reduce + current)
+            solutions (if (= total change-for) (conj solutions current) solutions)
+            next-coins (filterv #(and (<= % (- change-for total))
+                                      (>= % (peek current))) coins-available)
+            new-stack (if (empty? next-coins)
+                        stack
+                        (into stack (for [c next-coins]
+                                      (conj current c))))
+            current (peek new-stack)]
+        (println "total=" total "solutions=" solutions "next-coins=" next-coins "new-stack=" new-stack "current=" current)
+        (if (empty? new-stack)
+          solutions
+          (recur solutions current (pop new-stack)))))))
+
+
+(comment
+  (find-change 4 [1 2 3])
+  (find-change 10 [2 5 3 6]))
