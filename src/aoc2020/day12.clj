@@ -44,5 +44,4 @@
 
 
 (comment
-  (find-manhatten-distance-travelled) ; => 1032
-   )
+  (find-manhatten-distance-travelled)) ; => 1032

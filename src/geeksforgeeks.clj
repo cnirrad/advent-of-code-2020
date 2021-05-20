@@ -122,3 +122,42 @@
 (comment
   (find-change 4 [1 2 3])
   (find-change 10 [2 5 3 6]))
+
+
+
+;; https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
+
+(defn lcs-recursive [s1 s2 idx1 idx2]
+  (if (or (= idx1 0)
+          (= idx2 0))
+    0
+    (if (= (nth s1 (dec idx1))
+           (nth s2 (dec idx2)))
+      (+ 1 (lcs-recursive s1 s2 (dec idx1) (dec idx2)))
+      (Math/max (lcs-recursive s1 s2 idx1 (dec idx2))
+                (lcs-recursive s1 s2 (dec idx1) idx2)))))
+
+(comment
+  (lcs-recursive "ABCDGH" "AEDFHR" 6 6)
+  (lcs-recursive "AGGTAB" "GXTXAYB" 6 7))
+
+;; https://www.geeksforgeeks.org/count-ways-reach-nth-stair/
+
+(defn stair-counting [n]
+  (if (<= n 2)
+    n
+    (+ (stair-counting (- n 2))
+       (stair-counting (dec n)))))
+
+(defn stair-counting-dp [n]
+  (loop [solutions [0 1 2]
+         stair 3]
+    (if (> stair n)
+      (peek solutions)
+      (recur (conj solutions (+ (nth solutions (- stair 1))
+                                (nth solutions (- stair 2))))
+             (inc stair)))))
+
+(comment
+  (stair-counting-dp 4)
+  (stair-counting 4))
